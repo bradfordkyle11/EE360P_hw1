@@ -1,7 +1,10 @@
 import java.util.Arrays;
+import java.util.Scanner;
+import java.io.File;
 
 public class SortTest {
-  public static void main(String[] args) {
+
+  public static void main(String[] args) throws Exception{
     int[] A1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
     verifyParallelSort(A1);
 
@@ -10,6 +13,15 @@ public class SortTest {
 
     int[] A3 = { 13, 59, 24, 18, 33, 20, 11, 11, 13, 50, 10999, 97 };
     verifyParallelSort(A3);
+
+    int[] A4 = new int[10000];
+    Scanner scanner = new Scanner(new File("../src/test.txt"));
+
+    int i = 0;
+    while(scanner.hasNextInt()){
+       A4[i++] = scanner.nextInt();
+    }
+    verifyParallelSort(A4);
   }
 
   static void verifyParallelSort(int[] A) {
