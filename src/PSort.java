@@ -40,12 +40,10 @@ class QuickSort extends RecursiveTask<int[]>{
 			QuickSort qs1 = new QuickSort(A, begin, index);
 			qs1.fork();
 			QuickSort qs2 = new QuickSort(A, index+1, end);
-			int[] A2 = qs2.compute();
-			A = qs1.join();
-			for (int i = index+1; i < end; i++) {
-				A[i] = A2[i];
-			}
-			return A;
+			qs2.compute();
+			qs1.join();
+
+      return A;
 		}
 	}
 
