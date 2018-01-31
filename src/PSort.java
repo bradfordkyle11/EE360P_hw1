@@ -8,6 +8,8 @@ public class PSort{
   public static void parallelSort(int[] A, int begin, int end){
     // TODO: Implement your parallel sort function 
 	  ForkJoinPool forkJoinPool = new ForkJoinPool();
+	  QuickSort qs = new QuickSort(A, begin, end);
+	  forkJoinPool.invoke(qs);
 	  
 	  
 	
@@ -19,7 +21,7 @@ public class PSort{
 class QuickSort extends RecursiveTask<int[]>{
 	int[] A;
 	int begin, end;
-	QuickSort(int[] A, int begin, int end){
+	public QuickSort(int[] A, int begin, int end){
 		this.A  = A;
 		this.begin = begin;
 		this.end = end;
