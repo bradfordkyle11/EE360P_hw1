@@ -45,20 +45,19 @@ class QuickSort extends RecursiveTask<int[]> {
   }
 
   int getSplitIndex(int[] A, int begin, int end) {
-    int pivot = A[begin];
+    int pivot = A[end-1];
     int i = begin - 1;
     for (int j = begin; j < end - 1; j++) {
       if (A[j] < pivot) {
         i += 1;
         int swap = A[i];
         A[i] = A[j];
-        A[j] = A[i];
+        A[j] = swap;
       }
     }
-    if (A[end - 1] < A[i + 1]) {
-      int swap = A[end - 1];
+    if (pivot < A[i + 1]) {
       A[end - 1] = A[i + 1];
-      A[i + 1] = swap;
+      A[i + 1] = pivot;
     }
     return i + 1;
   }
