@@ -1,14 +1,14 @@
 import java.util.Arrays;
 
 public class SortTest {
-  public static void main (String[] args) {
-    int[] A1 = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+  public static void main(String[] args) {
+    int[] A1 = { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
     verifyParallelSort(A1);
-    
-    int[] A2 = {1, 3, 5, 7, 9};
+
+    int[] A2 = { 1, 3, 5, 7, 9 };
     verifyParallelSort(A2);
-    
-    int[] A3 = {13, 59, 24, 18, 33, 20, 11, 11, 13, 50, 10999, 97};
+
+    int[] A3 = { 13, 59, 24, 18, 33, 20, 11, 11, 13, 50, 10999, 97 };
     verifyParallelSort(A3);
   }
 
@@ -21,7 +21,7 @@ public class SortTest {
 
     Arrays.sort(A);
     PSort.parallelSort(B, 0, B.length);
-   
+
     boolean isSuccess = true;
     for (int i = 0; i < A.length; i++) {
       if (A[i] != B[i]) {
