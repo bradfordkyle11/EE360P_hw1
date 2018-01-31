@@ -5,44 +5,36 @@ import java.util.concurrent.*;
 
 public class PSort {
   public static void parallelSort(int[] A, int begin, int end) {
-    // TODO: Implement your parallel sort function
-    // int processors = Runtime.getRuntime().availableProcessors();
     ForkJoinPool forkJoinPool = new ForkJoinPool();
-    QuickSort qs = new QuickSort(A, begin, end, 0);
+    QuickSort qs = new QuickSort(A, begin, end, new Random ());
     forkJoinPool.invoke(qs);
-
   }
-
 }
 
 class QuickSort extends RecursiveTask<int[]> {
   int[] A;
   int begin, end, depth;
+  Random generator;
 
-  public QuickSort(int[] A, int begin, int end, int depth) {
+  public QuickSort(int[] A, int begin, int end, Random generator) {
     this.A = A;
     this.begin = begin;
     this.end = end;
-    this.depth = depth;
+    this.generator = generator;
   }
 
   @Override
   protected int[] compute() {
-    // TODO Auto-generated method stub
     if (begin == end) {
       return A;
     }
     if (end - begin <= 16) {
-      System.out.printf ("depth: %2d\tbegin: %5d\tend: %5d\n", this.depth, begin, end);
       return seqInsertSort(A, begin, end);
-      // return A;
     } else {
       int index = getSplitIndex(A, begin, end);
-      System.out.printf ("depth: %2d\tbegin: %5d\tend: %5d\tpivot: %5d\n", this.depth, begin, end, index);
-      // int index = (begin + end) / 2;
-      QuickSort qs1 = new QuickSort(A, begin, index, this.depth+1);
+      QuickSort qs1 = new QuickSort(A, begin, index, this.generator);
       qs1.fork();
-      QuickSort qs2 = new QuickSort(A, index + 1, end, this.depth+1);
+      QuickSort qs2 = new QuickSort(A, index + 1, end, this.generator);
       qs2.compute();
       qs1.join();
 
@@ -50,43 +42,8 @@ class QuickSort extends RecursiveTask<int[]> {
     }
   }
 
-  int pickPivot (int a, int b, int c)
-  {
-    int result;
-    if (a < b)
-    {
-      if (b > c)
-      {
-        if (c < a)
-          result = 0;
-        else
-          result = 2;
-      }
-      else
-        result = 1;
-    }
-    else
-    {
-      if (b < c)
-      {
-        if (c > a)
-          result = 0;
-        else
-          result = 2;
-      }
-      else
-        result = 1;
-    }
-
-    return result;
-  }
-
   int getSplitIndex(int[] A, int begin, int end) {
-    int[] idx = new int[3];
-    idx[0] = begin;
-    idx[1] = (begin + end)/2;
-    idx[2] = end-1;
-    int pivot = idx[pickPivot (A[idx[0]], A[idx[1]], A[idx[2]])];
+    int pivot = begin + this.generator.nextInt (end - begin);
     int i = begin - 1;
     for (int j = begin; j < end; j++) {
       if (A[j] < A[pivot]) {
