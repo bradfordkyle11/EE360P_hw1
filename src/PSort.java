@@ -71,7 +71,7 @@ class QuickSort extends RecursiveTask<int[]>{
 		for (int i = begin + 1; i < end; i++) {
 			int j = i - 1;
 			int current = A[i];
-			while (current < A[j] && j > begin) {
+			while (j >= begin && current < A[j]) {
 				A[j + 1] = A[j];
 				A[j] = current;
 				j--;
