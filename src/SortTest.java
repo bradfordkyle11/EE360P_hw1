@@ -15,11 +15,11 @@ public class SortTest {
     verifyParallelSort(A3);
 
     int[] A4 = new int[10000];
-    Scanner scanner = new Scanner(new File("../src/test.txt"));
+    Scanner scanner = new Scanner(new File("../src/test.txt")).useDelimiter("\\s*,\\s*");
 
     int i = 0;
-    while(scanner.hasNextInt()){
-       A4[i++] = scanner.nextInt();
+    while(scanner.hasNextInt()) {
+      A4[i++] = scanner.nextInt();
     }
     verifyParallelSort(A4);
   }
@@ -29,7 +29,7 @@ public class SortTest {
     System.arraycopy(A, 0, B, 0, A.length);
 
     System.out.println("Verify Parallel Sort for array: ");
-    printArray(A);
+    printArray(A, A.length);
 
     Arrays.sort(A);
     PSort.parallelSort(B, 0, B.length);
@@ -39,9 +39,9 @@ public class SortTest {
       if (A[i] != B[i]) {
         System.out.println("Your parallel sorting algorithm is not correct");
         System.out.println("Expect:");
-        printArray(A);
+        printArray(A, A.length);
         System.out.println("Your results:");
-        printArray(B);
+        printArray(B, B.length);
         isSuccess = false;
         break;
       }
@@ -53,8 +53,8 @@ public class SortTest {
     System.out.println("=========================================================");
   }
 
-  public static void printArray(int[] A) {
-    for (int i = 0; i < A.length; i++) {
+  public static void printArray(int[] A, int stop) {
+    for (int i = 0; i < stop; i++) {
       if (i != A.length - 1) {
         System.out.print(A[i] + " ");
       } else {
