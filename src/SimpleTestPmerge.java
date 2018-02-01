@@ -1,7 +1,8 @@
-import java.util.Arrays;
+import java.util.*;
+import java.io.File;
 
 public class SimpleTestPmerge {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception {
     int[] A1 = { 1, 3, 5, 7, 9 };
     int[] B1 = { 2, 4, 6, 8, 10 };
     verifyParallelMerge(A1, B1);
@@ -9,6 +10,22 @@ public class SimpleTestPmerge {
     int[] A2 = { 13, 60, 1000, 3000, 129948 };
     int[] B2 = { 1, 2, 3, 5, 10 };
     verifyParallelMerge(A2, B2);
+
+    int[] A3 = new int[10000];
+    int[] B3 = new int[10000];
+    Scanner s1 = new Scanner(new File("../src/A.txt")).useDelimiter("\\s*[\\]\\[,]+\\s*");
+    Scanner s2 = new Scanner(new File("../src/B.txt")).useDelimiter("\\s*[\\]\\[,]+\\s*");
+
+    int i = 0;
+    while(s1.hasNextInt()) {
+      A3[i++] = s1.nextInt();
+    }
+
+    i = 0;
+    while(s2.hasNextInt()) {
+      B3[i++] = s2.nextInt();
+    }
+    verifyParallelMerge(A3, B3);
   }
 
   static void verifyParallelMerge(int[] A, int[] B) {
